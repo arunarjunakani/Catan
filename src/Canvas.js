@@ -11,12 +11,23 @@ class Canvas extends Component {
 
   updateCanvas() {
     const ctx = this.refs.canvas.getContext('2d');
-		this.drawTiltedHexagon(ctx, 400, 100, 50, "#0000FF");
-		ctx.rotate(Math.PI / 4);
+		for (let i = 0; i < 5; i++) {
+			if (i % 2 === 0) {
+				for (let j = 0; j < 3; j++) {
+					this.drawTiltedHexagon(ctx, 400 + (j - 1) * 2 * this.apoth(50), 100 + i * 75, 50, "#FFFFFF");
+				}
+			} else {
+				for (let j = 0; j < 4; j++) {
+					this.drawTiltedHexagon(ctx, 400 + ((j - 1) * 2 - 1) * this.apoth(50), 100 + i * 75, 50, "#FFFFFF");
+				}
+			}
+		}
+		this.drawTiltedHexagon(ctx, 400 - 4 * this.apoth(50), 250, 50, "#FFFFFF");
+		this.drawTiltedHexagon(ctx, 400 + 4 * this.apoth(50), 250, 50, "#FFFFFF");
   }
 
   //Calculates the apothem of a hexagon based on the radius
-  calcApothem(rad) {
+  apoth(rad) {
   	return rad * Math.sin(Math.PI / 3);
   }
 
